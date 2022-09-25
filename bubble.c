@@ -55,7 +55,7 @@ int main() {
 
       // REALIZA A ORDENACAO
     tempo = -omp_get_wtime(); 
-    #pragma omp parallel for num_threads(2) schedule(static, STATIC_ARRAY_ORDERING)
+    #pragma omp parallel for schedule(SCHEDULER_PROCESS, CHUNCK_SIZE) num_threads(NUM_THREADS)
     for (i=0 ; i<NUM_ARRAYS; i++) {    
       printf("Thread %d (of %d) will sort array %d\n", omp_get_thread_num(), omp_get_num_threads(), i);
       BubbleSort(array_size, &arrays[i][0]);
@@ -79,6 +79,6 @@ int main() {
   for (i = 0; i < 10; i++) {
     printf("%d,%lf\n",sizes_with_time[i].size, sizes_with_time[i].time);
   }
-  
+
   return 0;
 }
