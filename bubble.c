@@ -15,15 +15,15 @@ void BubbleSort(int n, int * vetor) {
   int c =0, d, troca, trocou =1;
 
   while (c < (n-1) && trocou ) {
-        trocou = 0;
-        for (d = 0 ; d < n - c - 1; d++)
-            if (vetor[d] > vetor[d+1]) {
-                troca      = vetor[d];
-                vetor[d]   = vetor[d+1];
-                vetor[d+1] = troca;
-                trocou = 1;
-            }
-        c++;
+    trocou = 0;
+    for (d = 0 ; d < n - c - 1; d++)
+      if (vetor[d] > vetor[d+1]) {
+        troca      = vetor[d];
+        vetor[d]   = vetor[d+1];
+        vetor[d+1] = troca;
+        trocou = 1;
+      }
+    c++;
   }
 }
 
@@ -34,32 +34,33 @@ int main() {
   for (array_size = INI_ARRAY_SIZE; array_size <= MAX_ARRAY_SIZE; array_size += INC_ARRAY_SIZE) {
 
       // INICIALIZA OS ARRAYS A SEREM ORDENADOS
-      #pragma omp parallel for private(j) num_threads(omp_get_num_procs())
-      for (i=0 ; i<NUM_ARRAYS; i++) {
-          for (j=0 ; j<array_size; j++) {
-              if (i%5 == 0)
-                 arrays[i][j] = array_size-j;
-              else
-                 arrays[i][j] = j+1;
-          }
+    #pragma omp parallel for private(j) num_threads(omp_get_num_procs())
+    for (i=0 ; i<NUM_ARRAYS; i++) {
+      for (j=0 ; j<array_size; j++) {
+        if (i%5 == 0)
+          arrays[i][j] = array_size-j;
+        else
+          arrays[i][j] = j+1;
       }
+    }
 
       // REALIZA A ORDENACAO
-      tempo = -omp_get_wtime(); 
-      #pragma omp parallel for 
-      for (i=0 ; i<NUM_ARRAYS; i++) {
-          BubbleSort(array_size, &arrays[i][0]);
-      }
-      tempo += omp_get_wtime();
+    tempo = -omp_get_wtime(); 
+    #pragma omp parallel for 
+    for (i=0 ; i<NUM_ARRAYS; i++) {    
+      printf("Thread %d (of %d) will sort array %d", omp_get_thread_num(), omp_get_num_threads(), i);
+      BubbleSort(array_size, &arrays[i][0]);
+    }
+    tempo += omp_get_wtime();
 
-      // VERIFICA SE OS ARRAYS ESTAO ORDENADOS
-      for (i=0 ; i<NUM_ARRAYS; i++)
-          for (j=0 ; j<array_size-1; j++)
-              if (arrays[i][j] > arrays[i][j+1])
-                 return 1;
+    // VERIFICA SE OS ARRAYS ESTAO ORDENADOS
+    for (i=0 ; i<NUM_ARRAYS; i++)
+      for (j=0 ; j<array_size-1; j++)
+        if (arrays[i][j] > arrays[i][j+1])
+          return 1;
 
       // MOSTRA O TEMPO DE EXECUCAO
-      printf("%d %lf\n",array_size, tempo);
+    printf("%d %lf\n",array_size, tempo);
   }
   return 0;
 }
