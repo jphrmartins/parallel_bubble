@@ -1,0 +1,22 @@
+#!/bin/bash
+#SBATCH --export=ALL
+#SBATCH -N 1 # numero de nodos
+#SBATCH -t 60 # tempo maximo de execucao: 5min
+#SBATCH --exclusive
+#SBATCH --no-requeue
+#SBATCH -o /home/pp03011/openmp/parallel_bubble/exit/%x.%j_dynamic_16_150.out # formato do nome do arquivo de saída
+#SBATCH -D /home/pp03011/openmp/parallel_bubble # diretório
+echo ################
+echo Running on host `hostname`
+echo
+echo Initial Time is `date`
+echo
+echo Directory is `pwd`
+echo
+echo This jobs runs on the following nodes:
+echo $SLURM_JOB_NODELIST
+echo
+echo JOB_ID:
+echo $SLURM_JOBID
+echo ################
+./dynamic/bubble_dynamic_16_150 > ./dynamic/report/saida_dynamic_16_150.output
