@@ -19,4 +19,4 @@ echo
 echo JOB_ID:
 echo $SLURM_JOBID
 echo ################
-./static/bubble_static5_2_25 > ./static/report/saida_static5_2_25.output
+./dynamic/bubble_dynamic5_8_150 > ./dynamic/report/saida_dynamic_8_150.output

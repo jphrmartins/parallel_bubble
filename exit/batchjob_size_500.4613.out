@@ -1,0 +1,14 @@
+
+Running on host grad01
+
+Initial Time is Sun 25 Sep 2022 03:38:38 PM -03
+
+Directory is /home/pp03011/openmp/parallel_bubble
+
+This jobs runs on the following nodes:
+grad01
+
+JOB_ID:
+4613
+
+slurmstepd-grad01: error: *** JOB 4613 ON grad01 CANCELLED AT 2022-09-25T15:43:59 DUE TO TIME LIMIT ***
