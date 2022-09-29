@@ -27,12 +27,6 @@ void BubbleSort(int n, int * vetor) {
   }
 }
 
-void clean(int * array, size_t size) {
-  for (size_t i = 0; i < size; i++) {
-    array[i] = 0;
-  }
-}
-
 struct SizeTime
 {
   int size;
@@ -61,15 +55,16 @@ int main() {
     }
     printf("Will start sorting with arrays with size: %d\n", array_size);
 
-    clean(thread_activation, sizeof thread_activation);
+    for (i = 0; i < NUM_THREADS; i++) {
+      thread_activation[i] = 0;
+    }
       // REALIZA A ORDENACAO
     tempo = -omp_get_wtime(); 
-    printf("Tempo: %lf, array: %d\n", tempo, array_size);
     #pragma omp parallel for schedule(SCHEDULER_PROCESS, CHUNCK_SIZE) num_threads(NUM_THREADS)
     for (i=0 ; i<NUM_ARRAYS; i++) {    
       printf("Thread %d (of %d) will sort array %d\n", omp_get_thread_num(), omp_get_num_threads(), i);
       BubbleSort(array_size, &arrays[i][0]);
-      thread_activation[omp_get_thread_num()] = thread_activation[omp_get_thread_num()] + 1;
+     thread_activation[omp_get_thread_num()] = thread_activation[omp_get_thread_num()] + 1;
     }
     tempo += omp_get_wtime();
     printf("Tempo: %lf, array: %d\n", tempo, array_size);
@@ -84,7 +79,6 @@ int main() {
     sizes_with_time[array_loop].size = array_size;
     sizes_with_time[array_loop].time = tempo;
     printf("\n");
-    printf("INSERIU?: %d, %d -> %lf\n", array_loop, sizes_with_time[array_loop].size, sizes_with_time[array_loop].time);
     for (i = 0; i < NUM_THREADS; i++){
       printf("thread %d, executed: %d\n", i, thread_activation[i]);
     }
