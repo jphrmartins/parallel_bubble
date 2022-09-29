@@ -84,7 +84,7 @@ int main() {
     sizes_with_time[array_loop].size = array_size;
     sizes_with_time[array_loop].time = tempo;
     printf("\n");
-    printf("INSERIU?: %d -> %lf", sizes_with_time[array_loop].time, sizes_with_time[array_loop].size);
+    printf("INSERIU?: %d -> %lf", sizes_with_time[array_loop].size, sizes_with_time[array_loop].time);
     for (i = 0; i < NUM_THREADS; i++){
       printf("thread %d, executed: %d\n", i, thread_activation[i]);
     }
