@@ -4,7 +4,7 @@
 #SBATCH -t 60 # tempo maximo de execucao: 5min
 #SBATCH --exclusive
 #SBATCH --no-requeue
-#SBATCH -o /home/pp03011/openmp/parallel_bubble/exit/%x.%j_static_4_500.out -e -o /home/pp03011/openmp/parallel_bubble/exit/%x.%j_static_4_500.err # formato do nome do arquivo de saída
+#SBATCH -o /home/pp03011/openmp/parallel_bubble/exit/%x.%j_static_4_500.out -e /home/pp03011/openmp/parallel_bubble/exit/%x.%j_static_4_500.err # formato do nome do arquivo de saída
 #SBATCH -D /home/pp03011/openmp/parallel_bubble # diretório
 echo ################
 echo Running on host `hostname`
