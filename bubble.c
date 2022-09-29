@@ -64,6 +64,7 @@ int main() {
     clean(thread_activation, sizeof thread_activation);
       // REALIZA A ORDENACAO
     tempo = -omp_get_wtime(); 
+    printf("Tempo: %d, array: %d\n", tempo, array_size);
     #pragma omp parallel for schedule(SCHEDULER_PROCESS, CHUNCK_SIZE) num_threads(NUM_THREADS)
     for (i=0 ; i<NUM_ARRAYS; i++) {    
       printf("Thread %d (of %d) will sort array %d\n", omp_get_thread_num(), omp_get_num_threads(), i);
@@ -71,6 +72,7 @@ int main() {
       thread_activation[omp_get_thread_num()] = thread_activation[omp_get_thread_num()] + 1;
     }
     tempo += omp_get_wtime();
+    printf("Tempo: %d, array: %d\n", tempo, array_size);
 
     // VERIFICA SE OS ARRAYS ESTAO ORDENADOS
     for (i=0 ; i<NUM_ARRAYS; i++)
