@@ -41,7 +41,7 @@ struct SizeTime
 
 
 int main() {
-  int i, j, array_size, array_loop;
+  int i = 0, j = 0, array_size = 0, array_loop = 0;
   double tempo;
   struct SizeTime sizes_with_time[10];
   int thread_activation[NUM_THREADS];
